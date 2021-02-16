@@ -1,0 +1,34 @@
+available databases [3]:
+[*] information_schema
+[*] pg_catalog
+[*] public
+
+Database: public
+[1 table]
++-------+
+| users |
++-------+
+
+Database: public
+[1 table]
++-----------+
+| purchases |
++-----------+
+
+atabase: public
+Table: users
+[8 columns]
++-------------+---------+
+| Column      | Type    |
++-------------+---------+
+| address     | text    |
+| credit_card | text    |
+| email       | text    |
+| id          | int4    |
+| name        | text    |
+| password    | varchar |
+| ssn         | varchar |
+| username    | varchar |
++-------------+---------+
+
+
